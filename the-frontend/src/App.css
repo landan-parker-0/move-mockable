@@ -33,6 +33,10 @@
   }
 }
 
+body{
+  background: white;
+}
+
 .card {
   padding: 2em;
 }
