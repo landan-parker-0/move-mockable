@@ -13,17 +13,22 @@ const itemStatus = [
 const groups = ['Team Alpha', 'Team Beta', 'Team Gamma']
 
 export const generateMockData = (count = 10) => {
-  return Array.from({ length: count }, () => ({
+  return Array.from({ length: count }, () => {
+    const submittedTime = faker.date.recent();
+    const initiatedTime = new Date();
+    initiatedTime.setDate(submittedTime.getDate()-7)
+    return ({ 
     [itemScheme.customerName]: faker.person.fullName(),
     [itemScheme.specId]: `152${faker.string.numeric(6)}`,
     [itemScheme.itemEntryCode]: faker.string.alphanumeric(6).toUpperCase(),
     [itemScheme.status]: faker.helpers.arrayElement(itemStatus),
-    [itemScheme.submittedAt]: faker.date.recent().toISOString(),
+    [itemScheme.initiatedAt]: initiatedTime.toISOString(),
+    [itemScheme.submittedAt]: submittedTime.toISOString(),
     [itemScheme.group]: faker.helpers.arrayElement(groups),
     [itemScheme.originCode]: faker.string.alphanumeric(4).toUpperCase(),
     [itemScheme.originLocation]: faker.location.city(),
     [itemScheme.assignedUser]: faker.person.fullName(),
-  }));
+  })});
 };
 
 export const mockData = generateMockData(20);
